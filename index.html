@@ -53,13 +53,28 @@
                 return;
             }
             
-            // Simulación de parafraseo técnico reemplazando palabras clave
-            let paraphrasedText = input.replace(/estudio/g, "investigación")
-                                       .replace(/análisis/g, "evaluación")
-                                       .replace(/educación/g, "formación")
-                                       .replace(/institución/g, "entidad académica");
+            let technicalDictionary = {
+                "análisis": "evaluación", "sistema": "estructura", "implementación": "ejecución", "datos": "información",
+                "proceso": "procedimiento", "educación": "formación", "institución": "entidad académica", "optimización": "mejora del rendimiento",
+                "evaluación": "valoración", "resultado": "desenlace", "rendimiento": "eficiencia", "investigación": "indagación",
+                "tecnología": "innovación", "metodología": "enfoque", "estructura": "configuración", "seguridad": "protección",
+                "comunicación": "interacción", "desarrollo": "evolución", "estrategia": "planificación", "distribución": "asignación",
+                "automatización": "digitalización", "conectividad": "enlace", "prototipo": "modelo", "progreso": "avance",
+                "requerimiento": "necesidad", "innovación": "creatividad", "adaptación": "ajuste", "especificación": "detalle",
+                "competitividad": "rivalidad", "optimización": "mejora", "evaluación": "valoración", "desempeño": "actuación",
+                "integración": "unificación", "efectividad": "eficiencia", "diseño": "configuración", "interfaz": "superficie",
+                "implementación": "ejecución", "visualización": "representación", "coordinación": "sincronización", "capacidad": "habilidad",
+                "procesamiento": "tratamiento", "algoritmo": "procedimiento computacional", "informática": "ciencia de la computación",
+                "redes": "infraestructura de conectividad", "cálculo": "computación", "hardware": "equipamiento físico",
+                "software": "programación aplicada", "inteligencia artificial": "automatización cognitiva", "big data": "macrodatos",
+                "ciberseguridad": "protección digital", "criptografía": "seguridad encriptada", "virtualización": "entorno simulado",
+                "modelo de datos": "arquitectura de información", "nube": "computación distribuida", "machine learning": "aprendizaje automático"
+            };
             
-            document.getElementById("outputText").value = paraphrasedText;
+            let words = input.split(" ");
+            let paraphrasedWords = words.map(word => technicalDictionary[word] || word);
+            
+            document.getElementById("outputText").value = paraphrasedWords.join(" ");
         }
     </script>
 </body>
