@@ -53,12 +53,22 @@
                 return;
             }
             
-            let words = input.split(" ");
-            let paraphrasedWords = words.map(word => {
-                return word.length > 7 ? "[Técnico]" + word.split('').reverse().join('') : word;
+            fetch('https://api-inference.huggingface.co/models/facebook/bart-large-cnn', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer YOUR_HUGGINGFACE_API_KEY',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({inputs: input})
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("outputText").value = data[0]?.summary_text || "Error al parafrasear el texto.";
+            })
+            .catch(error => {
+                console.error("Error en la API:", error);
+                document.getElementById("outputText").value = "Error al procesar el texto.";
             });
-            
-            document.getElementById("outputText").value = paraphrasedWords.join(" ");
         }
     </script>
 </body>
