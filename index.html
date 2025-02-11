@@ -25,7 +25,7 @@
 </head>
 <body>
     <h2>Parafraseador Técnico de Documentos</h2>
-    <input type="file" id="fileInput" accept=".txt,.docx,.pdf">
+    <input type="file" id="fileInput" accept=".txt">
     <br>
     <textarea id="inputText" placeholder="O pegue su texto aquí..."></textarea>
     <br>
@@ -53,22 +53,13 @@
                 return;
             }
             
-            fetch('https://api-inference.huggingface.co/models/facebook/bart-large-cnn', {
-                method: 'POST',
-                headers: {
-                    'Authorization': 'Bearer YOUR_HUGGINGFACE_API_KEY',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({inputs: input})
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("outputText").value = data[0]?.summary_text || "Error al parafrasear el texto.";
-            })
-            .catch(error => {
-                console.error("Error en la API:", error);
-                document.getElementById("outputText").value = "Error al procesar el texto.";
-            });
+            // Simulación de parafraseo técnico reemplazando palabras clave
+            let paraphrasedText = input.replace(/estudio/g, "investigación")
+                                       .replace(/análisis/g, "evaluación")
+                                       .replace(/educación/g, "formación")
+                                       .replace(/institución/g, "entidad académica");
+            
+            document.getElementById("outputText").value = paraphrasedText;
         }
     </script>
 </body>
