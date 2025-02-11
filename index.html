@@ -82,24 +82,19 @@
                 "tecnologías educativas": "herramientas digitales para la enseñanza", "evaluación continua": "monitoreo progresivo del aprendizaje"
             };
             
-            let reverseDictionary = {};
-            for (const [key, value] of Object.entries(technicalDictionary)) {
-                reverseDictionary[value] = key;
-            }
+            let sentences = input.split('. ');
+            let outputHtml = "";
             
-            let outputHtml = input;
+            sentences.forEach(sentence => {
+                let paraphrasedSentence = sentence;
+                for (const [key, value] of Object.entries(technicalDictionary)) {
+                    let regex = new RegExp("\\b" + key + "\\b", "gi");
+                    paraphrasedSentence = paraphrasedSentence.replace(regex, `<span class='highlight'>${value}</span>`);
+                }
+                outputHtml += paraphrasedSentence + ". ";
+            });
             
-            for (const [key, value] of Object.entries(technicalDictionary)) {
-                let regex = new RegExp("\\b" + key + "\\b", "gi");
-                outputHtml = outputHtml.replace(regex, `<span class='highlight'>${value}</span>`);
-            }
-            
-            for (const [key, value] of Object.entries(reverseDictionary)) {
-                let regex = new RegExp("\\b" + key + "\\b", "gi");
-                outputHtml = outputHtml.replace(regex, `<span class='highlight'>${value}</span>`);
-            }
-            
-            document.getElementById("outputText").innerHTML = outputHtml;
+            document.getElementById("outputText").innerHTML = outputHtml.trim();
         }
     </script>
 </body>
