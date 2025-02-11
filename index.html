@@ -21,6 +21,10 @@
             font-size: 16px;
             cursor: pointer;
         }
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -32,7 +36,7 @@
     <button onclick="paraphraseTechnicalText()">Parafrasear Técnicamente</button>
     <br>
     <h3>Texto Parafraseado:</h3>
-    <textarea id="outputText" readonly></textarea>
+    <div id="outputText" style="width: 80%; height: 150px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; text-align: left;"></div>
 
     <script>
         document.getElementById('fileInput').addEventListener('change', function(event) {
@@ -83,36 +87,19 @@
                 reverseDictionary[value] = key;
             }
             
-            let paraphrasedText = input;
+            let outputHtml = input;
             
             for (const [key, value] of Object.entries(technicalDictionary)) {
                 let regex = new RegExp("\\b" + key + "\\b", "gi");
-                paraphrasedText = paraphrasedText.replace(regex, value);
+                outputHtml = outputHtml.replace(regex, `<span class='highlight'>${value}</span>`);
             }
             
             for (const [key, value] of Object.entries(reverseDictionary)) {
                 let regex = new RegExp("\\b" + key + "\\b", "gi");
-                paraphrasedText = paraphrasedText.replace(regex, value);
+                outputHtml = outputHtml.replace(regex, `<span class='highlight'>${value}</span>`);
             }
             
-            paraphrasedText = paraphrasedText.replace(/, /g, "; además, ")
-                .replace(/por lo tanto/g, "en consecuencia")
-                .replace(/asimismo/g, "de igual manera")
-                .replace(/de esta manera/g, "de este modo")
-                .replace(/es decir/g, "en otras palabras")
-                .replace(/por ende/g, "en efecto")
-                .replace(/como resultado/g, "debido a esto")
-                .replace(/finalmente/g, "para concluir")
-                .replace(/por ejemplo/g, "a modo de ilustración")
-                .replace(/según/g, "de acuerdo con")
-                .replace(/se puede observar/g, "se evidencia")
-                .replace(/demuestra/g, "pone en evidencia")
-                .replace(/señala/g, "indica")
-                .replace(/importante/g, "fundamental")
-                .replace(/factor/g, "elemento determinante")
-                .replace(/influencia/g, "impacto significativo");
-            
-            document.getElementById("outputText").value = paraphrasedText;
+            document.getElementById("outputText").innerHTML = outputHtml;
         }
     </script>
 </body>
