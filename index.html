@@ -56,6 +56,7 @@
             let technicalDictionary = {
                 "deserción estudiantil": "abandono académico", "educación superior": "formación universitaria",
                 "factores económicos": "condiciones financieras", "retención académica": "permanencia estudiantil",
+                "análisis de correspondencias múltiples": "evaluación de relaciones categóricas",
                 "infraestructura tecnológica": "plataforma digital", "modernización curricular": "actualización de planes de estudio",
                 "políticas inclusivas": "normativas equitativas", "apoyo financiero": "asistencia económica",
                 "programas de tutorías": "mentoría académica", "percepción de calidad educativa": "opinión sobre estándares académicos",
@@ -75,10 +76,13 @@
                 "riesgo de deserción": "peligro de abandono escolar", "seguimiento académico": "monitoreo educativo"
             };
             
-            let words = input.split(" ");
-            let paraphrasedWords = words.map(word => technicalDictionary[word] || word);
+            let paraphrasedText = input;
+            for (const [key, value] of Object.entries(technicalDictionary)) {
+                let regex = new RegExp("\\b" + key + "\\b", "gi");
+                paraphrasedText = paraphrasedText.replace(regex, value);
+            }
             
-            document.getElementById("outputText").value = paraphrasedWords.join(" ");
+            document.getElementById("outputText").value = paraphrasedText;
         }
     </script>
 </body>
