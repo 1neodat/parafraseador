@@ -56,7 +56,6 @@
             let technicalDictionary = {
                 "deserción estudiantil": "abandono académico", "educación superior": "formación universitaria",
                 "factores económicos": "condiciones financieras", "retención académica": "permanencia estudiantil",
-                "análisis de correspondencias múltiples": "evaluación de relaciones categóricas",
                 "infraestructura tecnológica": "plataforma digital", "modernización curricular": "actualización de planes de estudio",
                 "políticas inclusivas": "normativas equitativas", "apoyo financiero": "asistencia económica",
                 "programas de tutorías": "mentoría académica", "percepción de calidad educativa": "valoración del aprendizaje",
@@ -74,18 +73,44 @@
                 "servicios de bienestar estudiantil": "soporte académico y emocional", "innovación pedagógica": "mejoras en métodos de enseñanza",
                 "educación accesible": "aprendizaje sin barreras", "políticas de acceso a la educación": "normativas inclusivas para el aprendizaje",
                 "riesgo de deserción": "probabilidad de abandono escolar", "seguimiento académico": "monitoreo del progreso educativo",
-                "análisis educativo": "examen de tendencias académicas", "formación docente": "capacitación de profesores",
-                "infraestructura educativa": "instalaciones de enseñanza", "motivación estudiantil": "impulso académico",
                 "rendimiento académico": "desempeño estudiantil", "estrategias de aprendizaje": "técnicas pedagógicas",
                 "programas extracurriculares": "actividades complementarias", "formación integral": "desarrollo académico y personal",
                 "tecnologías educativas": "herramientas digitales para la enseñanza", "evaluación continua": "monitoreo progresivo del aprendizaje"
             };
             
+            let reverseDictionary = {};
+            for (const [key, value] of Object.entries(technicalDictionary)) {
+                reverseDictionary[value] = key;
+            }
+            
             let paraphrasedText = input;
+            
             for (const [key, value] of Object.entries(technicalDictionary)) {
                 let regex = new RegExp("\\b" + key + "\\b", "gi");
                 paraphrasedText = paraphrasedText.replace(regex, value);
             }
+            
+            for (const [key, value] of Object.entries(reverseDictionary)) {
+                let regex = new RegExp("\\b" + key + "\\b", "gi");
+                paraphrasedText = paraphrasedText.replace(regex, value);
+            }
+            
+            paraphrasedText = paraphrasedText.replace(/, /g, "; además, ")
+                .replace(/por lo tanto/g, "en consecuencia")
+                .replace(/asimismo/g, "de igual manera")
+                .replace(/de esta manera/g, "de este modo")
+                .replace(/es decir/g, "en otras palabras")
+                .replace(/por ende/g, "en efecto")
+                .replace(/como resultado/g, "debido a esto")
+                .replace(/finalmente/g, "para concluir")
+                .replace(/por ejemplo/g, "a modo de ilustración")
+                .replace(/según/g, "de acuerdo con")
+                .replace(/se puede observar/g, "se evidencia")
+                .replace(/demuestra/g, "pone en evidencia")
+                .replace(/señala/g, "indica")
+                .replace(/importante/g, "fundamental")
+                .replace(/factor/g, "elemento determinante")
+                .replace(/influencia/g, "impacto significativo");
             
             document.getElementById("outputText").value = paraphrasedText;
         }
